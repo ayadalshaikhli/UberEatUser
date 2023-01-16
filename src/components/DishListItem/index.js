@@ -1,10 +1,16 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 
 const DishListItem = ({ dish }) => {
+  const navigation = useNavigation();
   console.log(dish);
+  const onPress = () => {
+    console.warn("Dish pressed");
+    navigation.navigate("DishDetails", { id: dish.id });
+  };
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <View style={{flex:1}}>
         <Text style={styles.name}>{dish.name}</Text>
         <Text style={styles.description}>{dish.description}</Text>
@@ -17,7 +23,7 @@ const DishListItem = ({ dish }) => {
             )
         }
       </View>
-    </View>
+    </Pressable>
   );
 };
 

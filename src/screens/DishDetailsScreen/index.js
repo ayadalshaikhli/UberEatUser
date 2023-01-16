@@ -1,12 +1,23 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import restaurants from "../../../assets/data/restaurants";
 import { AntDesign } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 const dish = restaurants[0].dishes[0];
 
 const DishDetailsScreen = () => {
     const [quantity, setQuantity] = useState(0);
+    const navigation = useNavigation();
+    const onPress = () => {
+        navigation.navigate('Basket', {
+            restaurant: restaurants[0],
+            dish: dish,
+            quantity: quantity,
+        })
+        console.warn('Add to basket')
+        
+    }
 
     const onMinus = () => {
         if (quantity > 0) {
@@ -47,14 +58,14 @@ const DishDetailsScreen = () => {
 
       </View>
 
-      <View style={styles.button}>
+      <Pressable onPress={onPress} style={styles.button}>
         <Text style={styles.buttontext}>
             Add {quantity} {quantity > 1 ? 'items' : 'item'
             } to cart &#8226;
               $ (${totalPirce()})
 
         </Text>
-      </View>
+      </Pressable>
     </View>
   )
 }

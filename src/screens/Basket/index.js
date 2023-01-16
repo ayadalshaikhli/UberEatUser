@@ -1,16 +1,35 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, } from "react-native";
+import restaurants from "../../../assets/data/restaurants.json";
+import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import restaurants from "../../../assets/data/restaurants";
+import BasketDishItem from "../../components/BasketListItem";
+import { useNavigation } from "@react-navigation/native";
+const restaurant = restaurants[0];
 
-const dish = restaurants[0].dishes[0];
 
-const Basket= () => {
+
+const Basket = () => {
+  const [quantity, setQuantity] = useState(0);
+  const navigation = useNavigation();
+  const getTotal = () => {
+    return (quantity * dish.price).toFixed(2);
+  };
 
   return (
     <View style={styles.page}>
-      <Text>
-        Ayad
-      </Text>
+      <Text style={styles.title}>{restaurant.name}</Text>
+      <Text style={{ fontWeight: "bold", marginTop: 20, fontSize:19}}>Your Items</Text>
+        <FlatList
+            data={restaurant.dishes}
+            renderItem={({ item }) => <BasketDishItem basketDish={item} />}
+            keyExtractor={(item) => item.id}
+        />
+      <View style={styles.separator} />
+  
+
+      <View style={styles.button}>
+        <Text style={styles.buttonText}>Create Order</Text>
+      </View>
     </View>
   );
 };
@@ -19,58 +38,55 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     width: "100%",
-    paddingVertical: 30,
+    paddingVertical: 40,
+    padding: 10,
   },
-  container: {
-    marginHorizontal: 10,
+  title: {
+    fontSize: 30,
+    fontWeight: "600",
     marginVertical: 10,
   },
-  name: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
   description: {
-    fontSize: 16,
-    fontWeight: "normal",
-    marginBottom: 10,
+    fontSize: 15,
+    color: "#525252",
   },
   separator: {
+    width: "100%",
     height: 1,
-    backgroundColor: "#d3d3d3",
+    backgroundColor: "lightgray",
     marginVertical: 10,
   },
   row: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
-    marginVertical: 10,
-    marginHorizontal: 10,
+    alignItems: "center",
+    width: "100%",
+    marginVertical: 15,
   },
-  quantityContainer:{
-    backgroundColor: 'lightgray',
+  quantityContainer: {
+    backgroundColor: "lightgray",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 5,
     paddingVertical: 2,
-    marginRight: 10,
+    marginRight: 5,
     borderRadius: 3,
   },
   quantity: {
-    fontSize: 30,
-    fontWeight: "bold",
+    fontSize: 25,
     marginHorizontal: 20,
   },
   button: {
-    backgroundColor: "#000",
+    backgroundColor: "black",
     marginTop: "auto",
     padding: 20,
-    marginHorizontal: 10,
-    borderRadius: 20,
     alignItems: "center",
+    borderRadius: 30,
   },
-  buttontext: {
+  buttonText: {
     color: "white",
     fontWeight: "600",
-    fontSize: 14,
+    fontSize: 18,
   },
 });
 
