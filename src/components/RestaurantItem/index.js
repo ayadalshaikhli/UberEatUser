@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-
+const DEFAULT_IMAGE = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant4.jpeg"
 const RestaurantItem = ({ restaurant }) => {
   const navigation = useNavigation();
 
