@@ -1,13 +1,16 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-const DEFAULT_IMAGE = "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant4.jpeg"
+
+const DEFAULT_IMAGE =
+  "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg";
+
 const RestaurantItem = ({ restaurant }) => {
   const navigation = useNavigation();
 
   const onPress = () => {
     navigation.navigate("RestaurantDetails", { id: restaurant.id });
   };
+
   return (
     <Pressable onPress={onPress} style={styles.restaurantContainer}>
       <Image
@@ -35,6 +38,8 @@ const RestaurantItem = ({ restaurant }) => {
   );
 };
 
+export default RestaurantItem;
+
 const styles = StyleSheet.create({
   restaurantContainer: {
     width: "100%",
@@ -61,11 +66,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     backgroundColor: "lightgray",
     width: 30,
-    height: 20,
+    height: 30,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
   },
 });
-
-export default RestaurantItem;
