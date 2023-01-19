@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, FlatList, } from "react-native";
-import restaurants from "../../../assets/data/restaurants.json";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import BasketDishItem from "../../components/BasketListItem";
 import { useNavigation } from "@react-navigation/native";
-const restaurant = restaurants[0];
+import { useBasketContext } from "../../contexts/BasketContext";
+
 
 
 
@@ -14,13 +14,16 @@ const Basket = () => {
   const getTotal = () => {
     return (quantity * dish.price).toFixed(2);
   };
+  const { restaurant, basketDishes, totalPrice } = useBasketContext();
+
+
 
   return (
     <View style={styles.page}>
       <Text style={styles.title}>{restaurant.name}</Text>
       <Text style={{ fontWeight: "bold", marginTop: 20, fontSize:19}}>Your Items</Text>
         <FlatList
-            data={restaurant.dishes}
+            data={basketDishes}
             renderItem={({ item }) => <BasketDishItem basketDish={item} />}
             keyExtractor={(item) => item.id}
         />
@@ -28,7 +31,7 @@ const Basket = () => {
   
 
       <View style={styles.button}>
-        <Text style={styles.buttonText}>Create Order</Text>
+        <Text style={styles.buttonText}>Create order &#8226; ${totalPrice.toFixed(2)}</Text>
       </View>
     </View>
   );

@@ -32,5 +32,17 @@ export default StyleSheet.create({
     container: {
         margin: 10,
     },
-    
+    button: {
+        backgroundColor: '#000',
+        marginTop: "auto",
+        padding: 20,
+        marginHorizontal: 10,
+        borderRadius: 20,
+        alignItems: 'center'
+    },
+    buttonText:{
+        color: 'white',
+        fontWeight: '600',
+        fontSize: 14,
+    }
 })

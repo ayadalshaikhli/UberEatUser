@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { DataStore } from "aws-amplify";
 import { Dish } from "../../models";
-
+import { useBasketContext } from '../../contexts/BasketContext';
 
 const DishDetailsScreen = () => {
     const [quantity, setQuantity] = useState(1);
@@ -20,15 +20,13 @@ const DishDetailsScreen = () => {
             DataStore.query(Dish, id).then(setDish);
         }
     }, [id]);
-    console.log(dish);
+    
+    const {addDishToBasket} = useBasketContext();
 
-    const onPress = () => {
-        navigation.navigate('Basket', {
-            dish: dish,
-            quantity: quantity,
-        })
-        console.warn('Add to basket')
-        
+
+    const onAddToBasket = async () => {
+        await addDishToBasket(dish, quantity);
+        navigation.goBack();
     }
 
     const onMinus = () => {
@@ -76,7 +74,7 @@ const DishDetailsScreen = () => {
 
       </View>
 
-      <Pressable onPress={onPress} style={styles.button}>
+      <Pressable onPress={onAddToBasket} style={styles.button}>
         <Text style={styles.buttontext}>
             Add {quantity} {quantity > 1 ? 'items' : 'item'
             } to cart &#8226;
